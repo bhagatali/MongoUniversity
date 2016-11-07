@@ -7,7 +7,7 @@ MongoClient.connect('mongodb://localhost:27017/crunch',function (err,db) {
     console.log("Connected!");
 
     var query = queryOptions(options);
-    var projections =  {"name":1, "founded_year":1 , "number_of_employees" : 1, "category_code": 1, "_id": 0};
+    var projections =  {"name":1, "founded_year":1 , "number_of_employees" : 1, "category_code": 1, "ipo": 1, "_id": 0};
 
     var cursor = db.collection("companies").find(query,projections);
     // cursor.project(projections);
@@ -47,6 +47,17 @@ function queryOptions(options){
       query.number_of_employees = {"$gte": options.employees };
     };
 
+    //Because in JavaSript objects are like arrays, I can use
+    //this syntax below to verify the IPO details
+    if("ipo" in options){
+        if(options.ipo == "yes"){
+            query["ipo.valuation_amount"] = {"$exists" : true, "$ne" : null};
+        }
+        else if(options.ipo == "no"){
+            query["ipo.valuation_amount"] = null;
+        }
+    }
+
     return query;
 };
 
@@ -56,7 +67,8 @@ function commandLineOptions() {
         {name: "category", alias: "c", type: String},
         {name: "firstYear", alias: "f", type: Number},
         {name: "lastYear", alias: "l", type: Number},
-        {name: "employees", alias: "e", type: Number}
+        {name: "employees", alias: "e", type: Number},
+        {name: "ipo", alias: "i" , type: String}
     ]);
 
     var options = cli.parse();
