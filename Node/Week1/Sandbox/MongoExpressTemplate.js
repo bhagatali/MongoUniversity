@@ -2,8 +2,8 @@
  * Created by Ali on 2016-11-06.
  */
 var express = require('express'),
-    app = express(),
-    consolidate = require('consolidate'),
+    app = express(), //Web framework to handle routing requests
+    consolidate = require('consolidate'), //Templating library adapter for Express
     assert = require('assert'),
     MongoClient = require('mongodb').MongoClient;
 
