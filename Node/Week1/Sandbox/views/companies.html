@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Startup</title>
+</head>
+<body>
+    <h1>Startup Companies</h1>
+    <ul>
+        {% for company in companies %}
+        <li>{{company.name}}, {{company.founded_year}}</li>
+        {% else %}
+        <li>No companies found!</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
