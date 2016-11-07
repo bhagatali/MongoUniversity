@@ -54,14 +54,14 @@ public class findTest {
 		System.out.println("Find using cursor...filter");
 //		Bson filter = and(eq("type", "homework"),gt("student_id",150),lt("student_id",170));
 		Bson filter = eq("type", "homework");		
-		//Bson projections = exclude("_id");
+		//Bson projections.js = exclude("_id");
 		Bson sort = orderBy(ascending("student_id"),ascending("score"));
 		int student = 500;
 		
 		MongoCursor<Document> filterCursor = collection
 				                             .find(filter)
 				                             .sort(sort)
-//				                             .projection(projections)
+//				                             .projection(projections.js)
 //				                             .limit(10)
 				                             .iterator();
 		try {
